@@ -1,0 +1,56 @@
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+                  xmlns:tns="http://com.sample.redhat/ws" 
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+                  xmlns:ns1="http://schemas.xmlsoap.org/soap/http" 
+                  xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+                  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                  xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+                  name="echo-service" 
+                  targetNamespace="http://com.sample.redhat/ws">
+    <wsdl:message name="echoResponse">
+        <wsdl:part name="return" type="xsd:string"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="echo">
+        <wsdl:part name="arg0" type="xsd:string"></wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="echo">
+        <wsdl:operation name="echo">
+            <wsdl:input message="tns:echo" name="echo"></wsdl:input>
+            <wsdl:output message="tns:echoResponse" name="echoResponse"></wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="echo-serviceSoapBinding" type="tns:echo">
+        <wsp:PolicyReference URI="#SecurityPolicy"/>
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="echo">
+            <soap:operation soapAction="" style="rpc"/>
+            <wsdl:input name="echo">
+                <soap:body namespace="http://com.sample.redhat/ws" use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="echoResponse">
+                <soap:body namespace="http://com.sample.redhat/ws" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="echo-service">
+        <wsdl:port binding="tns:echo-serviceSoapBinding" name="echoPort">
+            <soap:address location="http://rhsso.sample.com:8081/cxf-ws-rhsso/echo-service/echo"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsp:Policy wsu:Id="SecurityPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:SupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+                    <wsp:Policy>
+                        <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                            <wsp:Policy>
+                                <sp:WssUsernameToken10/>
+                            </wsp:Policy>
+                        </sp:UsernameToken>
+                    </wsp:Policy>
+                </sp:SupportingTokens>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</wsdl:definitions>

@@ -1,0 +1,8 @@
+{
+  "realm": "master",
+  "auth-server-url": "http://rhsso.sample.com:8080/auth",
+  "ssl-required": "none",
+  "resource": "cxf-rhsso",
+  "public-client": true,
+  "use-resource-role-mappings": true
+}
