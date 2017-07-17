@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sample.redhat;
 
 import java.io.IOException;
@@ -22,8 +17,8 @@ import redhat.sample.com.ws.EchoService;
 /**
  * Common use of the keycloak behind an application. The access token is got 
  * from the keycloak session and the call to the WS is done using the access
- * token. The servlet is calling the WS inside this same machine (request info
- * is used).
+ * token. The servlet is calling the WS inside this same machine using
+ * standard WSS parameters.
  * 
  * @author rmartinc
  */

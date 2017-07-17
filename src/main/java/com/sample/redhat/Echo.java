@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sample.redhat;
 
 import javax.annotation.Resource;
@@ -20,12 +15,17 @@ import org.jboss.ws.api.annotation.EndpointConfig;
 
 /**
  * 
- * Simple stateless EJB web service.
- * http://www.superglobals.net/java-ee-soap-example/
- * 
- * WS-Security:
- * https://github.com/rareddy/ws-security-examples/tree/master/jaxws-usernametoken
- * https://docs.jboss.org/author/display/WFLY10/WS-Security
+ * <p>Simple stateless EJB web service which uses WSS username toekn.
+ * The security domain JBossWS is used to login using keycloak bearer login module.</p>
+ *
+ * <p>Examples of more information about WSS configuration:</p>
+ * <ul><li><a href="http://www.superglobals.net/java-ee-soap-example/">
+ *       Sample application that uses a SOAP ejb endpoint</a>.</li>
+ *     <li><a href="https://docs.jboss.org/author/display/WFLY10/WS-Security">
+ *       Documentation about WSS in wildfly<a>.</li>
+ *     <li><a href="https://github.com/rareddy/ws-security-examples/tree/master/jaxws-usernametoken">
+ *       Example application for WSS</a>.</li>
+ * </ul>
  * 
  * @author rmartinc
  */

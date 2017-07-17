@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sample.redhat.test;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -20,7 +15,8 @@ import org.apache.cxf.ws.security.SecurityConstants;
 
 /**
  * Sample client that connects to RH-SSO and then calls a SOAP endpoint using
- * the token. The token is just sent as a bearer authentication header.
+ * the token. The token is is sent using WSS username and password tokens.
+ * Later on the configuration just uses the token and the username is meaningless.
  *
  * In the environment 8080 is the rh-sso server and 8081 is the WS application
  * protected by keycloak.
@@ -30,8 +26,8 @@ import org.apache.cxf.ws.security.SecurityConstants;
 public class Client {
 
     public static void main(String... args) throws Exception {
-        // get the bearer token from another application that provides login
-        // if the application is a bearer-only the user should login to another application
+        // get the bearer token from an application that provides login
+        // if the ws application is bearer-only the user should login to another application
         Response res = ClientBuilder.newBuilder()
                     .build()
                     .target("http://rhsso.sample.com:8080/auth/realms/master/protocol/openid-connect/token")
