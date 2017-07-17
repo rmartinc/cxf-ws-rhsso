@@ -50,7 +50,6 @@ public class Echo {
     //@PermitAll // permit the WS to everybody
     public String echo(String input) {
         System.err.println("RICKY: principal: " + ctx.getCallerPrincipal());
-        System.err.println("RICKY: principal: " + ctx.getCallerPrincipal().getClass());
         System.err.println("RICKY: isCallerInRole: " + ctx.isCallerInRole("static"));
         return ctx.getCallerPrincipal() + " -> " +  input;
     }

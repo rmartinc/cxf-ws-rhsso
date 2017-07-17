@@ -47,7 +47,7 @@ public class Client {
         // parse the JSON token manually using jackson
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode node = objectMapper.readValue(res.readEntity(String.class), JsonNode.class);
-        System.err.println(node);
+        //System.err.println(node);
         String token = node.get("access_token").asText();
         String refresh_token = node.get("refresh_token").asText();
         
@@ -68,7 +68,7 @@ public class Client {
         }
         // parse the JSON token manually using jackson
         node = objectMapper.readValue(res.readEntity(String.class), JsonNode.class);
-        System.err.println(node);
+        //System.err.println(node);
         token = node.get("access_token").asText();
         refresh_token = node.get("refresh_token").asText();
          
@@ -78,8 +78,6 @@ public class Client {
         EchoService service = new EchoService(url);
         Echo echo = service.getEchoPort();
         // use WSS security to add a token to the SOAP message
-        BindingProvider bp = (BindingProvider) echo;
-        System.err.println(((BindingProvider)echo).getBinding().getClass());
         ((BindingProvider)echo).getRequestContext().put(SecurityConstants.USERNAME, "ricky");
         ((BindingProvider)echo).getRequestContext().put(SecurityConstants.PASSWORD, token);
         
