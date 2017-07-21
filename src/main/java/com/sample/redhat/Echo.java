@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
+import org.apache.cxf.annotations.Policy;
 import org.apache.cxf.interceptor.InInterceptors;
 import org.jboss.ws.api.annotation.EndpointConfig;
 
@@ -19,12 +20,11 @@ import org.jboss.ws.api.annotation.EndpointConfig;
  * The security domain JBossWS is used to login using keycloak bearer login module.</p>
  *
  * <p>Examples of more information about WSS configuration:</p>
- * <ul><li><a href="http://www.superglobals.net/java-ee-soap-example/">
- *       Sample application that uses a SOAP ejb endpoint</a>.</li>
- *     <li><a href="https://docs.jboss.org/author/display/WFLY10/WS-Security">
- *       Documentation about WSS in wildfly<a>.</li>
- *     <li><a href="https://github.com/rareddy/ws-security-examples/tree/master/jaxws-usernametoken">
- *       Example application for WSS</a>.</li>
+ * <ul>
+ *   <li><a href="http://www.superglobals.net/java-ee-soap-example/">Sample application that uses a SOAP ejb endpoint</a>.</li>
+ *   <li><a href="https://docs.jboss.org/author/display/WFLY10/WS-Security">Documentation about WSS in wildfly</a>.</li>
+ *   <li><a href="https://github.com/rareddy/ws-security-examples/tree/master/jaxws-usernametoken"> Example application for WSS</a>.</li>
+ *   <li><a href="https://github.com/mposolda/keycloak-remote-ejb/">Example of ejb-security under keycloak by Marek Posolda</a>.</li>
  * </ul>
  * 
  * @author rmartinc
@@ -32,8 +32,9 @@ import org.jboss.ws.api.annotation.EndpointConfig;
 @Stateless
 @WebService(name = "echo", 
         targetNamespace = "http://com.sample.redhat/ws", 
-        serviceName = "echo-service",
-        wsdlLocation = "WEB-INF/wsdl/echo-security.wsdl")
+        //wsdlLocation = "WEB-INF/wsdl/echo-security.wsdl",
+        serviceName = "echo-service")
+@Policy(placement = Policy.Placement.BINDING, uri = "WssUsernameToken10.xml")
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 @SecurityDomain("JBossWS")
 @DeclareRoles("static")
